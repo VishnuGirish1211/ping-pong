@@ -1,5 +1,8 @@
 import pygame
 from game.game_engine import GameEngine
+# Initialize mixer before pygame.init()
+pygame.mixer.pre_init(44100, -16, 2, 512)
+pygame.init()
 
 # Initialize pygame/Start application
 pygame.init()
@@ -31,6 +34,12 @@ def main():
         engine.handle_input()
         engine.update()
         engine.render(SCREEN)
+
+        if engine.check_game_over(SCREEN):
+             pygame.time.wait(1000)
+             running = False  # exit loop after showing message
+
+
 
         pygame.display.flip()
         clock.tick(FPS)
